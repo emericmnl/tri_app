@@ -184,39 +184,12 @@ async function fetchOFF(ean) {
 // 👉 Appel de l’endpoint serverless (Netlify/Vercel) qui parle à un LLM
 // 🧠 Version améliorée sans IA : explication naturelle et claire
 async function explainWithAI(payload) {
-  const produit = payload.product_name || "cet article";
-  const mat = (payload.material_primary || "matière inconnue")
-  .replace(/plastic/gi, "plastique");
-
-  const bac = payload.bin || "inconnu";
-
-  let phrase = "";
-
-  // Cas selon le bac
-  switch (bac) {
-    case "poubelle_jaune":
-      phrase = `Ce produit en ${mat.toLowerCase()} se jette dans la poubelle jaune avec les autres emballages recyclables.`;
-      break;
-
-    case "verre":
-      phrase = `Ce produit est en verre : il doit être déposé dans un conteneur à verre, sans bouchon ni capsule.`;
-      break;
-
-    case "dechetterie":
-      phrase = `Ce produit doit être déposé en déchèterie ou dans un point de collecte spécialisé.`;
-      break;
-
-    case "ordures_menageres":
-      phrase = `Ce produit en ${mat.toLowerCase()} ne se recycle pas : jetez-le dans les ordures ménagères.`;
-      break;
-
-    default:
-      phrase = `Vérifiez la consigne de tri pour ce produit avant de le jeter.`;
-  }
-
-  // Ajustements typographiques (majuscule, ponctuation, espace)
-  phrase = phrase.charAt(0).toUpperCase() + phrase.slice(1).trim();
-  if (!/[.!?]$/.test(phrase)) phrase += ".";
-
-  return { explication: phrase, confiance: 1.0 };
+  const r = await fetch('/.netlify/functions/explain', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!r.ok) throw new Error('IA indisponible');
+  return await r.json();
 }
+
