@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tri IA — Test EAN</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Tri IA — Test par code-barres</h1>
+    <p>Entre un EAN (ex : <code>3057640257775</code>) puis clique sur Rechercher.</p>
+
+    <div class="row">
+      <input id="ean" placeholder="Entrer un code-barres EAN-13" inputmode="numeric" />
+      <button id="btn">Rechercher</button>
+    </div>
+
+    <section class="card">
+      <h2>Résultat</h2>
+      <div class="kv"><span>Produit :</span><strong id="pname">—</strong></div>
+      <div class="kv"><span>Marque :</span><strong id="brand">—</strong></div>
+      <div class="kv"><span>Matériau principal (déduit) :</span><strong id="mat">—</strong></div>
+      <div class="kv"><span>Bac :</span><strong id="bin" class="pill">—</strong></div>
+      <div class="kv"><span>Confiance :</span><strong id="conf">—</strong></div>
+      <h3>Explication</h3>
+      <p id="explain">—</p>
+      <details>
+        <summary>Données brutes OFF</summary>
+        <pre id="raw">—</pre>
+      </details>
+    </section>
+    <div id="loader" class="loader hidden">
+  <div class="spinner"></div>
+  <p>Recherche en cours...</p>
+</div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
