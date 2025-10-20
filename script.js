@@ -145,7 +145,7 @@ if (expNode) {
 }
     // 5) Affichage final
     els.conf.textContent = (ai?.confiance != null) ? (ai.confiance.toFixed(2)) : '—';
-    els.explain.textContent = ai?.explication || '(explication indisponible)';
+    els.explain.textContent = ai?.explanation || '(explication indisponible)';
   } catch (err) {
     setExplain('Erreur : ' + (err?.message || String(err)));
   }
@@ -204,5 +204,6 @@ async function explainWithAI(payload) {
   if (!r.ok) throw new Error('IA indisponible');
   return await r.json();
 }
+
 
 
