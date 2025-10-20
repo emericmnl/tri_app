@@ -213,3 +213,11 @@ input, button {
     font-size: 0.95rem;
   }
 }
+/* Effet d'apparition douce pour le texte d'explication */
+#explain {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#explain.visible {
+  opacity: 1;
+}
