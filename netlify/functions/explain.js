@@ -8,8 +8,9 @@ export const handler = async (event) => {
 
   try {
     // 🔍 Étape 2 : on lit le body reçu
-    const { ean, material, bac } = JSON.parse(event.body || "{}");
-    console.log("🟡 Requête reçue:", { ean, material, bac });
+   const { product_name, brand, material_primary, bin } = JSON.parse(event.body || "{}");
+    
+console.log("🟡 Requête reçue:", { product_name, brand, material_primary, bin });
 
     // 🔑 Étape 3 : on vérifie la clé
     if (!process.env.OPENAI_API_KEY) {
@@ -22,10 +23,12 @@ export const handler = async (event) => {
 
     // 🧠 Étape 4 : on prépare la requête OpenAI
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    const prompt = `
-      Produit ${ean}, matériau principal : ${material}, bac : ${bac}.
-      Explique simplement pourquoi ce bac est le bon choix de tri.
-    `;
+   const prompt = `
+Produit : ${product_name || "inconnu"} (${brand || "marque non précisée"}).
+Matériau principal : ${material_primary || "inconnu"}.
+Bac : ${bin || "non précisé"}.
+Explique simplement pourquoi ce bac est le bon choix de tri.
+`;
 
     // 💬 Étape 5 : on interroge le modèle
     const completion = await client.chat.completions.create({
@@ -51,3 +54,4 @@ export const handler = async (event) => {
     };
   }
 };
+
