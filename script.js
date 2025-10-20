@@ -130,19 +130,6 @@ els.mat.textContent = materialNameFr.charAt(0).toUpperCase() + materialNameFr.sl
       mats_list: mats,
       bin
     });
-    // --- Affichage de la réponse IA dans la page ---
-const expNode = document.getElementById('explication-text');
-
-// On vérifie que la zone existe bien dans le HTML
-if (expNode) {
-  // Si l'IA a renvoyé une explication, on l'affiche
-  if (ai && ai.explanation) {
-    expNode.textContent = ai.explanation;
-  } else {
-    // Sinon, on garde le texte par défaut
-    expNode.textContent = '(explication indisponible)';
-  }
-}
     // 5) Affichage final
     els.conf.textContent = (ai?.confiance != null) ? (ai.confiance.toFixed(2)) : '—';
     els.explain.textContent = ai?.explanation || '(explication indisponible)';
@@ -204,6 +191,7 @@ async function explainWithAI(payload) {
   if (!r.ok) throw new Error('IA indisponible');
   return await r.json();
 }
+
 
 
 
