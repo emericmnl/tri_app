@@ -133,6 +133,11 @@ els.mat.textContent = materialNameFr.charAt(0).toUpperCase() + materialNameFr.sl
     // 5) Affichage final
     els.conf.textContent = (ai?.confiance != null) ? (ai.confiance.toFixed(2)) : '—';
     els.explain.textContent = ai?.explanation || '(explication indisponible)';
+    // Ajout d'une animation d'apparition sur le texte d'explication
+if (ai && ai.explanation) {
+  els.explain.classList.remove('visible'); // on enlève la classe si elle était déjà là
+  setTimeout(() => els.explain.classList.add('visible'), 10); // on la remet pour déclencher l'effet
+}
   } catch (err) {
     setExplain('Erreur : ' + (err?.message || String(err)));
   }
@@ -191,6 +196,7 @@ async function explainWithAI(payload) {
   if (!r.ok) throw new Error('IA indisponible');
   return await r.json();
 }
+
 
 
 
